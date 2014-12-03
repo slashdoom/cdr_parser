@@ -1,0 +1,37 @@
+# /etc/init.d/cdr_parser
+#
+### BEGIN INIT INFO
+# Provides: cdr_daemon
+# Required-Start:
+# Should-Start:
+# Required-Stop:
+# Should-Stop:
+# Default-Start:  3 5
+# Default-Stop:   0 1 2 6
+# Short-Description: CDR Parser Daemon
+# Description:    Runs the CDR Parser Daemon
+### END INIT INFO
+
+case "$1" in
+  start)
+    echo "Starting server"
+    # Start the daemon
+    python /opt/cdr_parser/cdr_parser.py start
+    ;;
+  stop)
+    echo "Stopping server"
+    # Stop the daemon
+    python /opt/cdr_parser/cdr_parser.py stop
+    ;;
+  restart)
+    echo "Restarting server"
+    python /opt/cdr_parser/cdr_parser.py restart
+    ;;
+  *)
+    # Refuse to do other stuff
+    echo "Usage: /etc/init.d/cdr_parser {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
