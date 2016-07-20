@@ -45,14 +45,17 @@ def do_main_program():
 
     logger.debug("es_type = %s" % es_type)
 
+    file_moved = True
     try:
       shutil.move(src_file, mod_conf.archive_path)
     except:
-      logger.warning("Error moving file to archive.")
-    
-    time.sleep(.1)
+      logger.warning("Error moving CDR file to archive.  Will retry.")
+      file_moved = False
 
-    if os.access(dest_file, os.W_OK):
+    time.sleep(.5)
+
+    if os.access(dest_file, os.W_OK) and file_moved:
+      logger.debug("CDR successfully moved to archive.")
       # Open CDR Log File
       csv_file = open(dest_file, 'rb')
       csv_read = csv.reader(csv_file, delimiter=',', quotechar='"')
@@ -208,7 +211,7 @@ def do_main_program():
           # Send CDR to ElasticSearch
           logger.debug(es.index(index=es_index,doc_type=es_type,body=es_body))
 
-  time.sleep(.1)
+  time.sleep(.5)
   
 def program_cleanup():
   print "program_cleanup - not implemented"
