@@ -7,14 +7,14 @@ from elasticsearch import Elasticsearch
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-#Logger Console Handler
-ch = logging.StreamHandler() #StreamHandler logs to console
+# Logger Console Handler
+ch = logging.StreamHandler() # StreamHandler logs to console
 ch.setLevel(logging.DEBUG)
 ch_format = logging.Formatter('%(asctime)s - %(message)s')
 ch.setFormatter(ch_format)
 logger.addHandler(ch)
 
-#Logger File Handler
+# Logger File Handler
 fh = logging.FileHandler('/var/log/cdr_parser/{0}.log'.format(__name__))
 fh.setLevel(logging.INFO)
 fh_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)-8s - %(message)s')
@@ -26,13 +26,25 @@ def initial_program_setup():
 
 def do_main_program():
 
-  # by default connect to localhost:9200
-  es = Elasticsearch()
+  # Connect to ES in config file
+  es = Elasticsearch([{'host': mod_conf.es_host, 'port': mod_conf.es_port}])
 
   for file in os.listdir(mod_conf.cdr_path):
     # Get pathes from config file
     src_file = os.path.join(mod_conf.cdr_path, file)
     dest_file = os.path.join(mod_conf.archive_path,file)
+
+    if os.path.isfile(dest_file):
+      logger.warning("archive file exists; trying alternate file name")
+      n = 0
+      while True:
+        if os.path.isfile(dest_file + "_dup_" + str(n)):
+          logger.warning("archive file exists; trying alternate file name")
+          n += 1
+        else:
+          dest_file += "_dup_" + str(n)
+          logger.info("archive file renamed: %s" % dest_file)
+          break
 
     logger.debug("src_file = %s" % src_file)
     logger.debug("dest_file = %s" % dest_file)
@@ -47,10 +59,17 @@ def do_main_program():
 
     file_moved = True
     try:
-      shutil.move(src_file, mod_conf.archive_path)
+      shutil.move(src_file, dest_file)
     except:
-      logger.warning("Error moving CDR file to archive.  Will retry.")
+      logger.warning("error moving CDR file to archive; will retry")
       file_moved = False
+
+    if mod_conf.es_file_check:
+      es_file_search = es.search(index="_all",doc_type=es_type, body={"query": {"match": {"filename": "%s" % file}}})
+      logger.debug("%d documents found" % es_file_search['hits']['total'])
+      if bool(int("%d" % es_file_search['hits']['total'])):
+        logger.error("matching cdr file found in ES; aborting parsing")
+        break
 
     time.sleep(.5)
 
