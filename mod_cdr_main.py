@@ -123,14 +123,12 @@ def do_main_program():
               es_body[csv_data[0]] = cdr_time
               # Build @timestamp
               es_body['@timestamp'] = cdr_time
-              logger.debug(cdr_time.strftime("%Y.%m.%d"))
             # Decode dateTimeOrigination
             elif csv_data[0] == "dateTimeOrigination":
               cdr_time = mod_cdr_decode.decode_Time(val=csv_data[1])
               es_body[csv_data[0]] = cdr_time
               # Build @timestamp
               es_body['@timestamp'] = cdr_time
-              logger.debug(cdr_time.strftime("%Y.%m.%d"))
             # Decode origIpAddr
             elif csv_data[0] == "origIpAddr":
               es_body[csv_data[0]] = mod_cdr_decode.decode_IP(val=csv_data[1])
@@ -237,6 +235,11 @@ def do_main_program():
           
           # Write original filename to ES for checking
           es_body["filename"] = file
+
+          # Update index if building in datetime
+          if index_build:
+            es_index += cdr_time.strftime("%Y.%m.%d")
+            logger.debug("built es_index: %s" % es_index)
 
           # Send CDR to ElasticSearch
           logger.debug(es.index(index=es_index,doc_type=es_type,body=es_body))
