@@ -27,6 +27,13 @@ es_port = "9200"
 # Example: es_index = "cdr"
 es_index = ""
 
+# Date format when default index used.  Requires valid PHP date format.
+# Example: "%Y.%m.%d" = 2015.11.01
+#          "%m.%d.%Y" = 11.01.2015
+#          "%m%d%Y"   = 11012015
+es_index_format = "%Y.%m.%d"
+
 # Set ElasticSearch Type
+# Will use CDR filename if none specified
 # Example: es_type = "parsed_cdr"
 es_type = ""
