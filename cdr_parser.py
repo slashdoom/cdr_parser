@@ -1,9 +1,9 @@
 ###########################################################################
 #
-# 
+# Cisco CDR to ES Parser (cd_parser)
 #
 # FILENAME:    cdr_parser.py
-# DESCRIPTION: Time based scrubber script for iDbF
+# DESCRIPTION: Main app file to control parser as daemon
 #
 # AUTHOR:      Patrick K. Ryon (slashdoom)
 # COPYWRITE:   
