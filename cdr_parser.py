@@ -1,3 +1,16 @@
+###########################################################################
+#
+# 
+#
+# FILENAME:    cdr_parser.py
+# DESCRIPTION: Time based scrubber script for iDbF
+#
+# AUTHOR:      Patrick K. Ryon (slashdoom)
+# COPYWRITE:   
+# LICENSE:     3 clause BSD (see LICENSE file)
+#
+###########################################################################
+
 import logging
 import time
 
