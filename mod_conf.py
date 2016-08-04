@@ -15,7 +15,7 @@ archive_path = "/opt/cdr_archive/"
 es_file_check = False
 
 # Set ElasticSearch Host
-# Exmaple: es_host = "192.168.1.100"
+# Example: es_host = "192.168.1.100"
 es_host = "localhost"
 
 # Set ElasticSearch Port
