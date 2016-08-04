@@ -1,4 +1,4 @@
-###########################################################################
+###############################################################################
 #
 # Cisco CDR to ES Parser (cd_parser)
 #
@@ -6,10 +6,10 @@
 # DESCRIPTION: Main app file to control parser as daemon
 #
 # AUTHOR:      Patrick K. Ryon (slashdoom)
-# COPYWRITE:   
+# COPYWRITE:   Copyright (c) 2014, Patrick Ryon (Slashdoom) All rights reserved.
 # LICENSE:     3 clause BSD (see LICENSE file)
 #
-###########################################################################
+################################################################################
 
 import logging
 import time
