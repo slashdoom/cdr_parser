@@ -116,7 +116,6 @@ def do_main_program():
                   es_index = "index_err"
               else:
                  es_index = mod_conf.es_index
-              logger.debug(es_index)
             # Decode dateTimeStamp
             elif csv_data[0] == "dateTimeStamp":
               cdr_time = mod_cdr_decode.decode_Time(val=csv_data[1])
