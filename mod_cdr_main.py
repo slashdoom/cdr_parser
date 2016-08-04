@@ -237,7 +237,7 @@ def do_main_program():
 
           # Update index if building in datetime
           if index_build:
-            es_index += cdr_time.strftime("%Y.%m.%d")
+            es_index += cdr_time.strftime(mod_conf.es_index_format)
             logger.debug("built es_index: %s" % es_index)
 
           # Send CDR to ElasticSearch
