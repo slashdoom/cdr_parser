@@ -119,15 +119,18 @@ def do_main_program():
               logger.debug(es_index)
             # Decode dateTimeStamp
             elif csv_data[0] == "dateTimeStamp":
-              es_body[csv_data[0]] = mod_cdr_decode.decode_Time(val=csv_data[1])
+              cdr_time = mod_cdr_decode.decode_Time(val=csv_data[1])
+              es_body[csv_data[0]] = cdr_time
               # Build @timestamp
-              es_body['@timestamp'] = mod_cdr_decode.decode_Time(val=csv_data[1])
-              logger.debug(mod_cdr_decode.decode_Time(val=csv_data[1]).strftime("%Y.%m.%d"))
+              es_body['@timestamp'] = cdr_time
+              logger.debug(cdr_time.strftime("%Y.%m.%d"))
             # Decode dateTimeOrigination
             elif csv_data[0] == "dateTimeOrigination":
-              es_body[csv_data[0]] = mod_cdr_decode.decode_Time(val=csv_data[1])
+              cdr_time = mod_cdr_decode.decode_Time(val=csv_data[1])
+              es_body[csv_data[0]] = cdr_time
               # Build @timestamp
-              es_body['@timestamp'] = mod_cdr_decode.decode_Time(val=csv_data[1])
+              es_body['@timestamp'] cdr_time
+              logger.debug(cdr_time.strftime("%Y.%m.%d"))
             # Decode origIpAddr
             elif csv_data[0] == "origIpAddr":
               es_body[csv_data[0]] = mod_cdr_decode.decode_IP(val=csv_data[1])
