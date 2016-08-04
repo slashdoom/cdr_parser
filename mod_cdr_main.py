@@ -226,6 +226,9 @@ def do_main_program():
               es_body["Call Sequence"] = "Call to: " + origNum
             else:
               es_body["Call Sequence"] = "Call to: " + origNum + " Forwarded to: " + finNum
+          
+          # Write original filename to ES for checking
+          es_body["filename"] = file
 
           # Send CDR to ElasticSearch
           logger.debug(es.index(index=es_index,doc_type=es_type,body=es_body))
