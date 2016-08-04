@@ -129,7 +129,7 @@ def do_main_program():
               cdr_time = mod_cdr_decode.decode_Time(val=csv_data[1])
               es_body[csv_data[0]] = cdr_time
               # Build @timestamp
-              es_body['@timestamp'] cdr_time
+              es_body['@timestamp'] = cdr_time
               logger.debug(cdr_time.strftime("%Y.%m.%d"))
             # Decode origIpAddr
             elif csv_data[0] == "origIpAddr":
