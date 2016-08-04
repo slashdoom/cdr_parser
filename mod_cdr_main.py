@@ -122,7 +122,7 @@ def do_main_program():
               es_body[csv_data[0]] = mod_cdr_decode.decode_Time(val=csv_data[1])
               # Build @timestamp
               es_body['@timestamp'] = mod_cdr_decode.decode_Time(val=csv_data[1])
-              logger.debug(mod_cdr_decode.decode_Time(val=csv_data[1]))
+              logger.debug(mod_cdr_decode.decode_Time(val=csv_data[1]).strftime("%Y.%m.%d"))
             # Decode dateTimeOrigination
             elif csv_data[0] == "dateTimeOrigination":
               es_body[csv_data[0]] = mod_cdr_decode.decode_Time(val=csv_data[1])
