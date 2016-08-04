@@ -102,22 +102,27 @@ def do_main_program():
           for csv_data in csv_zip:
             # Decode cdrRecordType
             if csv_data[0] == "cdrRecordType":
+              index_build = False
               es_body[csv_data[0]] = mod_cdr_decode.decode_RecordType(val=csv_data[1])
               # Check for configured type, if none use cdr/cmr-YYYY.MM.DD
               if mod_conf.es_index == "":
                 if csv_data[1] == "1":
-                  es_index = "cdr-%s" % datetime.utcnow().strftime("%Y.%m.%d")
+                  es_index = "cdr-"
+                  index_build = True
                 elif csv_data[1] == "2":
-                  es_index = "cmr-%s" % datetime.utcnow().strftime("%Y.%m.%d")
+                  es_index = "cmr-" 
+                  index_build = True
                 else:
                   es_index = "index_err"
               else:
                  es_index = mod_conf.es_index
+              logger.debug(es_index)
             # Decode dateTimeStamp
             elif csv_data[0] == "dateTimeStamp":
               es_body[csv_data[0]] = mod_cdr_decode.decode_Time(val=csv_data[1])
               # Build @timestamp
               es_body['@timestamp'] = mod_cdr_decode.decode_Time(val=csv_data[1])
+              logger.debug(mod_cdr_decode.decode_Time(val=csv_data[1]))
             # Decode dateTimeOrigination
             elif csv_data[0] == "dateTimeOrigination":
               es_body[csv_data[0]] = mod_cdr_decode.decode_Time(val=csv_data[1])
