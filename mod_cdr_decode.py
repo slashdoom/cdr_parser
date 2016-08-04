@@ -1,3 +1,16 @@
+###############################################################################
+#
+# Cisco CDR to ES Parser (cd_parser)
+#
+# FILENAME:    mod_cdr_decode.py
+# DESCRIPTION: Module that contains the parser's CUCM decoding information
+#
+# AUTHOR:      Patrick K. Ryon (slashdoom)
+# COPYWRITE:   Copyright (c) 2014, Patrick Ryon (Slashdoom) All rights reserved.
+# LICENSE:     3 clause BSD (see LICENSE file)
+#
+################################################################################
+
 import time
 import datetime
 import mod_conf
@@ -377,35 +390,35 @@ def decode_Time(val):
     time_stamp = datetime.datetime.utcfromtimestamp(float(val))
     return time_stamp
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" decode_IP (int_to_ip) by Jerold Swan                                           """
-""" https://gist.github.com/jayswan/1796357                                        """
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+###############################################################################
+### decode_IP (int_to_ip) by Jerold Swan                                    ###
+### https://gist.github.com/jayswan/1796357                                 ###
+###############################################################################
 def decode_IP(val):
-  """ convert a 32-bit signed integer to an IP address"""
+  ### convert a 32-bit signed integer to an IP address ###
   # do preventative type checking because I didn't want to check inputs
   try:
     if type(val) == str or type(val) == int:
       val = long(val)
   except ValueError:
     return "decode_err"
-                                           
+
   # CUCM occasionally creates CDRs with an IP of '0'. Bug or feature? Beats me.
   if val == 0:
     return "N/A"
-                                                               
+
   # hex conversion for 32-bit signed int; 
   # the slice at the end removes the '0x' and 'L' in the result
   h = hex(val & 0xffffffff)[2:-1] 
-                                                                            
+
   if len(h) == 7: #pad initial zero if required
     h = '0' + h
-                                                                                    
+ 
   hex_ip = [h[6:8],h[4:6],h[2:4],h[:2]] # reverse the octets
-                                                                                            
+
   #put them back together in IPv4 format
   ip = '.'.join([str(int(n,16)) for n in hex_ip]) 
-                                                                                          
+
   return ip
 
 def decode_duration(val):
