@@ -1,3 +1,16 @@
+###############################################################################
+#
+# Cisco CDR to ES Parser (cd_parser)
+#
+# FILENAME:    mod_cdr_main.py
+# DESCRIPTION: Module that contains the applications main parsing functions
+#
+# AUTHOR:      Patrick K. Ryon (slashdoom)
+# COPYWRITE:   Copyright (c) 2016, Patrick Ryon (Slashdoom) All rights reserved.
+# LICENSE:     3 clause BSD (see LICENSE file)
+#
+################################################################################
+
 import csv, logging, os, shutil, time
 import mod_conf, mod_cdr_decode
 
