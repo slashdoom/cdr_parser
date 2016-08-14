@@ -40,7 +40,7 @@ def initial_program_setup():
 def do_main_program():
 
   # Connect to ES in config file
-  es = Elasticsearch([{'host': mod_conf.es_host, 'port': mod_conf.es_port}])
+  es = Elasticsearch([{'host': mod_conf.es_host, 'port': mod_conf.es_port}], timeout=30, max_retries=10, retry_on_timeout=True)
 
   for file in os.listdir(mod_conf.cdr_path):
     # Get pathes from config file
