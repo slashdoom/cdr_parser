@@ -22,6 +22,7 @@ logger.setLevel(logging.DEBUG)
 
 # Logger Console Handler
 ch = logging.StreamHandler() # StreamHandler logs to console
+ch.propagate = False
 ch.setLevel(logging.DEBUG)
 ch_format = logging.Formatter('%(asctime)s - %(message)s')
 ch.setFormatter(ch_format)
@@ -29,6 +30,7 @@ logger.addHandler(ch)
 
 # Logger File Handler
 fh = logging.FileHandler('/var/log/cdr_parser/{0}.log'.format(__name__))
+fh.propagate = False
 fh.setLevel(logging.INFO)
 fh_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)-8s - %(message)s')
 fh.setFormatter(fh_format)
