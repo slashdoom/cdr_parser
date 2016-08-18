@@ -27,8 +27,8 @@ def do_main_program(logger):
 
   for file in os.listdir(mod_conf.cdr_path):
     # Get pathes from config file
-    src_file = os.path.join(mod_conf.cdr_path, file)
-    dest_file = os.path.join(mod_conf.archive_path,file)
+    src_file  = os.path.join(mod_conf.cdr_path, file)
+    dest_file = os.path.join(mod_conf.archive_path, file)
 
     if os.path.isfile(dest_file):
       logger.warning("archive file exists; trying alternate file name")
