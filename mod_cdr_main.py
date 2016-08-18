@@ -23,7 +23,7 @@ logger.setLevel(logging.DEBUG)
 # Logger Console Handler
 ch = logging.StreamHandler() # StreamHandler logs to console
 ch.propagate = False
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.ERROR)
 ch_format = logging.Formatter('%(asctime)s - %(message)s')
 ch.setFormatter(ch_format)
 logger.addHandler(ch)
@@ -76,14 +76,14 @@ def do_main_program():
     try:
       shutil.move(src_file, dest_file)
     except:
-      logger.warning("error moving CDR file to archive; will retry")
+      logger.warning("could not move CDR file to archive; will retry")
       file_moved = False
 
     if mod_conf.es_file_check:
       es_file_search = es.search(index="_all",doc_type=es_type, body={"query": {"match": {"filename": "%s" % file}}})
       logger.debug("%d documents found" % es_file_search['hits']['total'])
       if bool(int("%d" % es_file_search['hits']['total'])):
-        logger.error("matching cdr file found in ES; aborting parsing")
+        logger.warning("matching cdr file found in ES; aborting parsing")
         break
 
     time.sleep(.5)
