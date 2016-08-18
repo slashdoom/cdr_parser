@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Cisco CDR to ES Parser (cd_parser)
+# Cisco CDR to ES Parser (cdr_parser)
 #
 # FILENAME:    mod_cdr_decode.py
 # DESCRIPTION: Module that contains the parser's CUCM decoding information
