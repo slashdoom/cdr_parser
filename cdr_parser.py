@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Cisco CDR to ES Parser (cd_parser)
+# Cisco CDR to ES Parser (cdr_parser)
 #
 # FILENAME:    cdr_parser.py
 # DESCRIPTION: Main app file to control parser as daemon
@@ -36,7 +36,7 @@ class App():
 
     while True:
       # Call Main Program
-      do_main_program()
+      do_main_program(logger)
       
 app = App()
 
