@@ -47,7 +47,7 @@ logger.setLevel(logging.DEBUG)
 ch = logging.StreamHandler() # StreamHandler logs to console
 ch.propagate = False
 ch.setLevel(logging.DEBUG)
-ch_format = logging.Formatter('%(asctime)s - %(name)s - %(message)s')
+ch_format = logging.Formatter('%(asctime)s - %(levelname)-8s - %(message)s')
 ch.setFormatter(ch_format)
 logger.addHandler(ch)
 
@@ -55,7 +55,7 @@ logger.addHandler(ch)
 fh = logging.FileHandler('{0}{1}.log'.format(mod_conf.log_path,__name__))
 fh.propagate = False
 fh.setLevel(logging.INFO)
-fh_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)-8s - %(message)s')
+fh_format = logging.Formatter('%(asctime)s - %(levelname)-8s - %(message)s')
 fh.setFormatter(fh_format)
 logger.addHandler(fh)
 
