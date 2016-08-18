@@ -10,6 +10,10 @@ archive_path = "/opt/cdr_archive/"
 # Example: log_path = "/var/log/cdr_parser/"
 log_path = "/var/log/cdr_parser/"
 
+# Set location of cdr_parser daemon pid file
+# Example: pid_path = "/var/run/"
+pid_path = "/var/run/"
+
 # Set checking for files already existing in ElasticSearch
 # Warning: Experimental
 # Check for duplicates and don't write to ES:
