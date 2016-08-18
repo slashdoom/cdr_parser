@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Cisco CDR to ES Parser (cd_parser)
+# Cisco CDR to ES Parser (cdr_parser)
 #
 # FILENAME:    mod_cdr_main.py
 # DESCRIPTION: Module that contains the applications main parsing functions
@@ -11,35 +11,16 @@
 #
 ################################################################################
 
-import csv, logging, os, shutil, time
+import csv, os, shutil, time
 import mod_conf, mod_cdr_decode
 
 from datetime import datetime
 from elasticsearch import Elasticsearch
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
-# Logger Console Handler
-ch = logging.StreamHandler() # StreamHandler logs to console
-ch.propagate = False
-ch.setLevel(logging.ERROR)
-ch_format = logging.Formatter('%(asctime)s - %(message)s')
-ch.setFormatter(ch_format)
-logger.addHandler(ch)
-
-# Logger File Handler
-fh = logging.FileHandler('/var/log/cdr_parser/{0}.log'.format(__name__))
-fh.propagate = False
-fh.setLevel(logging.INFO)
-fh_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)-8s - %(message)s')
-fh.setFormatter(fh_format)
-logger.addHandler(fh)
-
 def initial_program_setup():
   print "initial_program_setup"
 
-def do_main_program():
+def do_main_program(logger):
 
   # Connect to ES in config file
   es = Elasticsearch([{'host': mod_conf.es_host, 'port': mod_conf.es_port}], timeout=30, max_retries=10, retry_on_timeout=True)
