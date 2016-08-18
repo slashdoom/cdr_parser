@@ -6,6 +6,10 @@ cdr_path = "/opt/cdr_ftproot/"
 # Example: archive_path = "/opt/cdr_archive/"
 archive_path = "/opt/cdr_archive/"
 
+# Set location of cdr_parser log files
+# Example: log_path = "/var/log/cdr_parser/"
+log_path = "/var/log/cdr_parser/"
+
 # Set checking for files already existing in ElasticSearch
 # Warning: Experimental
 # Check for duplicates and don't write to ES:
